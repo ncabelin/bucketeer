@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Bucketeer</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- jQuery -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  	<!-- bootStrap -->
+	<link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <!--  font awesome  -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+	<!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style>
+    body {
+      background-color: #0d0a57;
+      font-family: 'Lato', sans-serif;
+    }
+
+    h1 {
+      font-weight: 700;
+    }
+
+    .main_container {
+    	margin-right: auto;
+    	margin-left: auto;
+    	max-width: 960px;
+    }
+
+    hr {
+      border-top: 1px solid black;
+    }
+
+    .content {
+      margin-top: 100px;
+    }
+
+    .navbar {
+      background-color: white;
+    }
+
+    .navbar-brand {padding: 15px 20px 5px 15px; height: 70px;}
+    .navbar-toggle { margin-top: 20px; }
+    .navbar-nav {padding: 20px 15px; }
+
+    .nav-container {
+      margin: 0 200px;
+    }
+
+    .navbar-default .navbar-nav>li>a, .navbar-default .navbar-brand {
+      color: #0d0a57;
+    }
+
+    .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-brand:hover {
+      color: black;
+    }
+
+    .right-border {
+      border-right: 1px solid black;
+    }
+
+    .boxed {
+      border: 1px solid black;
+      background-color: white;
+      padding: 20px;
+    }
+
+    .btn {
+      border-radius: 0;
+    }
+
+    .selected h4 {
+      color: white;
+    }
+
+    li>a {
+      color: black;
+    }
+
+    li>a:hover {
+      text-decoration: none;
+    }
+
+    .picture_height {
+      max-height: 150px;
+      margin-bottom: 10px;
+    }
+
+    .alert {
+      margin-top: 10px;
+    }
+
+    .alert-success {
+      border: 0;
+      border-radius: 0;
+      color: white;
+      background-color: #5387aa;
+    }
+
+    .user_pic {
+      margin: 6px;
+      height: 40px;
+      border-radius: 100%;
+    }
+
+    .white, .active {
+      color: white;
+    }
+
+    .black {
+      color: black;
+    }
+
+    .light {
+      font-weight: 300;
+    }
+
+  </style>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a href="/"><img src="/static/bucket_logo.png" class="img-responsive navbar-brand"></a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav navbar-right text-center">
+	        {% if user %}
+	          <li><img src="{{ user.picture }}" class="user_pic"><strong> {{ user.name }} </strong>&nbsp; </li>
+	        {% endif %}
+	        <li><a href="/">Browse</a></li>
+	        {% if user %}
+	        <li><a href="/showusercategory/0">My Categories</a></li>
+	        <li><a href="/disconnect">Logout</a></li>
+	        {% else %}
+	        <li><a href="/login">Login</a></li>
+	        {% endif %}
+	      </ul>
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+  <div class="content">
+	{% block content %}
+	{% endblock %}
+  </div>
+</body>
+<!-- jQuery Match height -->
+<script src="/static/js/jquery.matchHeight.js"></script>
+<script>
+$(function() {
+    $('.item').matchHeight();
+});
+</script>
+</html>

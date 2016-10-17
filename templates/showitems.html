@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<h1 class="text-center white">Bucket List</h1>
+		</div>
+		<div class="col-md-8">
+			<h1 class="text-center white">{{ category.name }}</h1>{% if author %}<h4 class="text-center white">by {{ author.name }}{% endif %}
+			{% if user.id == category.user_id %}
+			 &nbsp;<a href="/showusercategory/0" class="btn btn-info btn-xs">Add / Edit / Delete</a>
+			{% endif %}</h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4 right-border text-center">
+			<div class="list-group">
+			{% for c in categories %}
+				{% if c.name == category.name %}
+					<a href="{{ url_for('showItems', category_id = c.id) }}" class="list-group-item active selected"><h4>{{ c.name }}</h4></a>
+				{% else %}
+					<a href="{{ url_for('showItems', category_id = c.id) }}" class="list-group-item"><h4>{{ c.name }}</h4></a>
+				{% endif %}
+			{% endfor %}
+			</div>
+		</div>
+		<div class="col-md-8 white">
+			{% for i in items %}
+				<hr>
+				<h4>{{ i.name }} <small>added {{ i.date_added | standard_date }}</small></h4>
+				<p class="light">{{ i.description }}</p>
+				{% if i.picture %}
+					<img src="{{ i.picture }}" class="img-responsive picture_height">
+				{% endif %}
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}

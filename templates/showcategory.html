@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<h1 class="text-center white">All Buckets</h1>
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					{% for m in messages %}
+						<div class="alert alert-success">{{ m }}<a href="" class="close" data-dismiss="alert">&times;</a></div>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+		</div>
+		<div class="col-md-8">
+			<h2 class="white">Recent Bucket items</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4 right-border list-group">
+			{% for c in categories %}
+				<a href="{{ url_for('showItems', category_id = c.id) }}" class="list-group-item"><h4 class="text-center">{{ c.name }}</h4></a>
+			{% endfor %}
+		</div>
+		<div class="col-md-8">
+			<div class="row">
+			{% for i in items %}
+				<div class="col-md-6 item">
+					<hr>
+					<div class="row">
+						<div class="col-md-8">
+							<a href="{{ url_for('showItem', item_id = i.id) }}"><h4 class="white light">{{ i.name }}</h4></a>
+						</div>
+						<div class="col-md-4">
+							{% if i.picture %}
+								<img src="{{ i.picture }}" class="img-responsive">
+							{% else %}
+								<img src="/static/bucket.jpg" class="img-responsive">
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

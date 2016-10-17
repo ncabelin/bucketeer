@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="white">{{ user.name }}'s Bucket List 
+			<a href="{{ url_for('addCategory') }}" class="btn btn-success btn-xs">Add</a>
+			{% if category %}
+			<a href="{{ url_for('editCategory', category_id = category.id) }}" class="btn btn-info btn-xs">Edit</a>
+			<a href="{{ url_for('deleteCategory', category_id = category.id) }}" class="btn btn-danger btn-xs">Delete</a>
+			<a href="{{ url_for('addItem', category_id = category.id) }}" class="btn btn-success btn-sm pull-right">Add Item</a>
+			{% endif %}
+			</h1>
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					{% for m in messages %}
+						<div class="alert alert-success">{{ m }}<a class="close" data-dismiss="alert" href="">&times;</a></div>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4 right-border list-group">
+			{% for c in categories %}
+				{% if category %}
+					{% if c.name == category.name %}
+						<a class="list-group-item active selected text-center" href="{{ url_for('showUserCategory', category_id = c.id) }}">
+					{% else %}
+						<a class="list-group-item text-center" href="{{ url_for('showUserCategory', category_id = c.id) }}">
+					{% endif %}
+				{% else %}
+						<a class="list-group-item text-center" href="{{ url_for('showUserCategory', category_id = c.id) }}">
+				{% endif %}
+							<h4>{{ c.name }}</h4>
+						</a>
+			{% endfor %}
+		</div>
+		<div class="col-md-8 white">
+		{% if items %}
+			{% for i in items %}
+				<h4>{{ i.name }} <small>added {{ i.date_added | standard_date }}</small></h4>
+				<p class="light">{{ i.description }}</p>
+				{% if i.picture %}
+					<img src="{{ i.picture }}" class="img-responsive picture_height">
+				{% endif %}
+				{% if user.id == i.user_id %}
+				<a href="{{ url_for('editItem', item_id = i.id) }}" class="btn btn-info">Edit</a>
+				<a href="{{ url_for('deleteItem', item_id = i.id) }}" class="btn btn-danger">Delete</a>
+				{% endif %}
+			{% endfor %}
+		{% else %}
+			{% if category %}
+			<div class="well black text-center">
+				<h4><i class="fa fa-arrow-left fa-lg"></i> No items, <a href="{{ url_for('addItem', category_id = category.id) }}" class="btn btn-success">Add</a> one</h4>
+			</div>
+			{% else %}
+			<div class="well black text-center">
+				<h4><i class="fa fa-arrow-left fa-lg"></i> Select a List</h4>
+			</div>
+			{% endif %}
+		{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}
