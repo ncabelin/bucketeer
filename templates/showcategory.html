@@ -33,9 +33,9 @@
 						</div>
 						<div class="col-md-4">
 							{% if i.picture %}
-								<img src="{{ i.picture }}" class="img-responsive">
+								<a href="{{ url_for('showItem', item_id = i.id) }}"><img src="{{ i.picture }}" class="img-responsive"></a>
 							{% else %}
-								<img src="/static/bucket.jpg" class="img-responsive">
+								<a href="{{ url_for('showItem', item_id = i.id) }}"><img src="/static/bucket.jpg" class="img-responsive"></a>
 							{% endif %}
 						</div>
 					</div>

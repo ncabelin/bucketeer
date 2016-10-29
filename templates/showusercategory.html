@@ -42,7 +42,7 @@
 				<h4>{{ i.name }} <small>added {{ i.date_added | standard_date }}</small></h4>
 				<p class="light">{{ i.description }}</p>
 				{% if i.picture %}
-					<img src="{{ i.picture }}" class="img-responsive picture_height">
+					<a href="{{ url_for('showItem', item_id = i.id) }}"><img src="{{ i.picture }}" class="img-responsive picture_height"></a>
 				{% endif %}
 				{% if user.id == i.user_id %}
 				<a href="{{ url_for('editItem', item_id = i.id) }}" class="btn btn-info">Edit</a>
